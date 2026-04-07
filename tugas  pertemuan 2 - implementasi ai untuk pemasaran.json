@@ -1,0 +1,313 @@
+{
+  "name": "tugas  pertemuan 2 - implementasi ai untuk pemasaran",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "applycation/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$json.api_key}}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"grok-imagine/image-to-video\",\n  \"input\": {\n    \"image_urls\": [\n      \"{{ $json.task_type.replace('file/d/', 'uc?export=view&id=').split('/view')[0] }}\"\n    ],\n    \"prompt\": \"{{ $json.Prompt }}\",\n    \"mode\": \"normal\",\n    \"duration\": \"6\",\n    \"resolution\": \"480p\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -704,
+        144
+      ],
+      "id": "dff9bee7-9bc7-457d-a5cd-15c37deac4d1",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "amount": 20
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -496,
+        144
+      ],
+      "id": "99f33e61-0828-464f-abc6-777b5e5774d5",
+      "name": "Wait",
+      "webhookId": "ace18129-0426-4eee-983f-a060cbb9cf71"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "fc76e2bb-44ac-427a-be9d-bc33810aaeb4",
+              "leftValue": "=success",
+              "rightValue": "={{ $json.data.state }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -80,
+        144
+      ],
+      "id": "c0b53c0d-39ec-4e5d-b01e-7416d8e4fe67",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = JSON.parse($json.data.resultJson);\n\nreturn [{\n  videoUrl: result.resultUrls?.[0] || null\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        160,
+        128
+      ],
+      "id": "02a9ebbd-b804-4364-9de9-a9546f41da4c",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.videoUrl }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        320,
+        128
+      ],
+      "id": "91b282be-3617-40fb-bcf8-a8dc14b6d9e6",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "formTitle": "Generate video konten otomatis ",
+        "formDescription": "Isi formnya untuk generate video ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Prompt"
+            },
+            {
+              "fieldLabel": "task_type"
+            },
+            {
+              "fieldLabel": "api_key",
+              "placeholder": "Paste your API Key here..."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -912,
+        144
+      ],
+      "id": "56c674ed-017c-4046-a254-fc6eb674f887",
+      "name": "On form submission1",
+      "webhookId": "7f63d407-76e2-4b6f-bbef-fc08f3bb6b8b"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.kie.ai/api/v1/jobs/recordInfo",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Conten-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$node[\"On form submission1\"].json[\"api_key\"]}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -288,
+        144
+      ],
+      "id": "20efdbb0-b5ac-4cd2-9184-28b1d618d3d3",
+      "name": "generate"
+    },
+    {
+      "parameters": {
+        "name": "Praktikum Implementasi ",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1if1IZ0fzNDdF_k9nON6iTr6T44RK7OCl",
+          "mode": "list",
+          "cachedResultName": "00  Praktikum - ghiya modul 6",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1if1IZ0fzNDdF_k9nON6iTr6T44RK7OCl"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        528,
+        128
+      ],
+      "id": "65e39c7b-6403-4ad0-a5db-da3939fd4cb4",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "EjpFJIRdjWAoGpQS",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "generate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generate": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "c5c8f681-d0c4-4dc8-ac16-43c75ceddfaf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "32c0ef153f7930e565ad160435282be5c9c56963458788d102e98ccae3c60878"
+  },
+  "id": "a6XfbzAE1oPd6S44",
+  "tags": []
+}
