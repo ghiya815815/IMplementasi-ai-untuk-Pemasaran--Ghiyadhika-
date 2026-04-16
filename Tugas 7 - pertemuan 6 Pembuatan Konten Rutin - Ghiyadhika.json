@@ -1,0 +1,1420 @@
+{
+  "name": "Tugas 7 - pertemuan 6 Pembuatan Konten Rutin - Ghiyadhika",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8a3efcc0-b3c8-48bd-aa08-b4d1f2e8456c",
+              "name": "tanggal",
+              "value": "={{ $today }}",
+              "type": "string"
+            },
+            {
+              "id": "beedbf80-f0ed-4444-8c0b-61c79db6aa0e",
+              "name": "tema",
+              "value": "Teknologi & Produktivitas",
+              "type": "string"
+            },
+            {
+              "id": "c2d3df98-35ec-4d7f-b0ca-be759aff9821",
+              "name": "waktu",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        720,
+        528
+      ],
+      "id": "c0805893-6af4-4416-9ae5-907c950f0a7e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Buat rencana konten harian untuk {{ $json.tanggal }} dengan tema  {{ $json.tema }} \n\nSaya mau Anda buatnya dalam bentuk nomor atau point.",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        928,
+        528
+      ],
+      "id": "df7a1cde-fae4-40a5-83f1-f3e770dfd8ef",
+      "name": "Membuat Ide Konten",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"time_slot\": \"\",\n    \"title\": \"\",\n    \"platforms\": [],\n    \"focus\": \"\",\n    \"ideas\": []\n  }\n]"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1072,
+        368
+      ],
+      "id": "4e719b97-b2b1-4367-ab67-71d1d86730d9",
+      "name": "Output LLM"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ced750ba-f13e-40f5-977a-e35e208b0abe",
+              "name": "time_slot",
+              "value": "={{ $json.output[0].time_slot }}",
+              "type": "string"
+            },
+            {
+              "id": "48b34c9d-da67-4e17-bc24-cb371224277e",
+              "name": "title",
+              "value": "={{ $json.output[0].title }}",
+              "type": "string"
+            },
+            {
+              "id": "16ef9753-a8c5-4768-9848-dda185de0fd2",
+              "name": "platform",
+              "value": "={{ $json.output[0].platforms }}",
+              "type": "string"
+            },
+            {
+              "id": "cf657efe-db22-42e7-8569-746eb5d1910c",
+              "name": "focus",
+              "value": "={{ $json.output[0].focus }}",
+              "type": "string"
+            },
+            {
+              "id": "57f2f647-71f6-4761-b622-334ebfb2c36b",
+              "name": "ide",
+              "value": "={{ $json.output[0].ideas }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        48
+      ],
+      "id": "879d87c7-2bc2-4044-913c-2d5fa62027aa",
+      "name": "Output 1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ced750ba-f13e-40f5-977a-e35e208b0abe",
+              "name": "time_slot",
+              "value": "={{ $json.output[1].time_slot }}",
+              "type": "string"
+            },
+            {
+              "id": "48b34c9d-da67-4e17-bc24-cb371224277e",
+              "name": "title",
+              "value": "={{ $json.output[1].title }}",
+              "type": "string"
+            },
+            {
+              "id": "16ef9753-a8c5-4768-9848-dda185de0fd2",
+              "name": "platform",
+              "value": "={{ $json.output[1].platforms }}",
+              "type": "string"
+            },
+            {
+              "id": "cf657efe-db22-42e7-8569-746eb5d1910c",
+              "name": "focus",
+              "value": "={{ $json.output[1].focus }}",
+              "type": "string"
+            },
+            {
+              "id": "57f2f647-71f6-4761-b622-334ebfb2c36b",
+              "name": "ide",
+              "value": "={{ $json.output[1].ideas }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        208
+      ],
+      "id": "db59b250-0860-458c-a49f-98cde674c6d7",
+      "name": "Output 2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ced750ba-f13e-40f5-977a-e35e208b0abe",
+              "name": "time_slot",
+              "value": "={{ $json.output[2].time_slot }}",
+              "type": "string"
+            },
+            {
+              "id": "48b34c9d-da67-4e17-bc24-cb371224277e",
+              "name": "title",
+              "value": "={{ $json.output[2].title }}",
+              "type": "string"
+            },
+            {
+              "id": "16ef9753-a8c5-4768-9848-dda185de0fd2",
+              "name": "platform",
+              "value": "={{ $json.output[2].platforms }}",
+              "type": "string"
+            },
+            {
+              "id": "cf657efe-db22-42e7-8569-746eb5d1910c",
+              "name": "focus",
+              "value": "={{ $json.output[2].focus }}",
+              "type": "string"
+            },
+            {
+              "id": "57f2f647-71f6-4761-b622-334ebfb2c36b",
+              "name": "ide",
+              "value": "={{ $json.output[2].ideas }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        368
+      ],
+      "id": "7c18d0d9-bd05-42ab-92c4-17304fa5aab6",
+      "name": "Output 3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ced750ba-f13e-40f5-977a-e35e208b0abe",
+              "name": "time_slot",
+              "value": "={{ $json.output[3].time_slot }}",
+              "type": "string"
+            },
+            {
+              "id": "48b34c9d-da67-4e17-bc24-cb371224277e",
+              "name": "title",
+              "value": "={{ $json.output[3].title }}",
+              "type": "string"
+            },
+            {
+              "id": "16ef9753-a8c5-4768-9848-dda185de0fd2",
+              "name": "platform",
+              "value": "={{ $json.output[3].platforms }}",
+              "type": "string"
+            },
+            {
+              "id": "cf657efe-db22-42e7-8569-746eb5d1910c",
+              "name": "focus",
+              "value": "={{ $json.output[3].focus }}",
+              "type": "string"
+            },
+            {
+              "id": "57f2f647-71f6-4761-b622-334ebfb2c36b",
+              "name": "ide",
+              "value": "={{ $json.output[3].ideas }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1344,
+        528
+      ],
+      "id": "dc738c26-7b0d-4f28-b43c-c884fa25f15b",
+      "name": "Output  4"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1616,
+        448
+      ],
+      "id": "c7b960a3-1aec-4e1e-8586-216089ee21ee",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "chatId": "5701993759",
+        "text": "=Title: {{ $json.title }}\n\nPlatform: {{ $json.platform }}\n\nIde: {{ $json.ide }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1824,
+        480
+      ],
+      "id": "ec7d1a22-bdd5-49ba-9489-3c7c49da6ed2",
+      "name": "Kirim Ide ke Tim",
+      "webhookId": "6f7b959f-91ae-445f-a295-aec2be83d29b",
+      "credentials": {
+        "telegramApi": {
+          "id": "iHhuo0IrSpXaEYSm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        768
+      ],
+      "id": "531c6b4c-64cd-49a7-8a5e-72b67f601b77",
+      "name": "Telegram Trigger",
+      "webhookId": "f306a709-4a6c-4d57-92a7-bb262bd52e18",
+      "credentials": {
+        "telegramApi": {
+          "id": "iHhuo0IrSpXaEYSm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0cfd0e10-f285-4e59-816b-672142b25d6e",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        240,
+        544
+      ],
+      "id": "b5140b10-d616-4ad8-9303-87fb2c1c2391",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Harap ketik /start untuk memulai.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        368
+      ],
+      "id": "5f778017-9606-4bcc-ab01-982f80aabdaf",
+      "name": "Format salah (False)",
+      "webhookId": "344961dc-582f-4d28-a91e-ccc0d9b7f5bc",
+      "credentials": {
+        "telegramApi": {
+          "id": "iHhuo0IrSpXaEYSm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.from.id }}",
+        "text": "Systia sedang memproses request Anda, harap tunggu sebentar.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        992
+      ],
+      "id": "7d5dc818-27ac-46bc-8216-bec220a61f59",
+      "name": "Respon Cepat",
+      "webhookId": "c5faba3b-7193-4911-bc4f-fd9bc0d50f15",
+      "credentials": {
+        "telegramApi": {
+          "id": "iHhuo0IrSpXaEYSm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2160,
+        752
+      ],
+      "id": "6a78ad36-9f71-4460-9ad7-9ed212752db3",
+      "name": "Kirim Gambar",
+      "webhookId": "280810a6-c0e2-4982-8828-7ff14e19b303",
+      "credentials": {
+        "telegramApi": {
+          "id": "iHhuo0IrSpXaEYSm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "bb0c7351-48aa-44db-867c-1af41a5845d6"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "772013c2-8697-4b74-943e-226fe212af8a",
+                    "leftValue": "={{ $json.message.text }}",
+                    "rightValue": "Title",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "84225419-f387-44ef-ba8e-4f2f779be83c",
+                    "leftValue": "={{ $json.message.photo ? \"ada\" : \"nggak\" }}",
+                    "rightValue": "ada",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        0,
+        752
+      ],
+      "id": "a0e36b8b-67a9-4215-89fd-02fc109942bc",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "content": "#  Proses Membuat Ide Konten",
+        "height": 640,
+        "width": 2176,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        32
+      ],
+      "id": "d36e2adb-62a8-447b-85f4-43b361f6ce63",
+      "name": "Sticky Note",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "##  Proses membuat gambar berdasarkan ide yang dipilih",
+        "height": 272,
+        "width": 2144,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        704
+      ],
+      "id": "1c417a99-50c3-4ff5-9dd9-25747da87364",
+      "name": "Sticky Note1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -1392,
+        1952
+      ],
+      "id": "4e80ae3e-df17-4c0b-a12e-2cbddc79e16d",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "modelId": {
+          "__rl": true,
+          "value": "models/veo-3.1-generate-preview",
+          "mode": "list",
+          "cachedResultName": "models/veo-3.1-generate-preview"
+        },
+        "prompt": "={{ $json.content.parts[0].text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -704,
+        1952
+      ],
+      "id": "804b4cfa-d0ca-448f-971f-5075da714b2d",
+      "name": "Generate a video"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "Analyze the image and generate a detailed, cinematic video prompt suitable for Google VEO-3.1. Include:\n- Subject and action (e.g., \"a cat jumping on a sofa\")\n- Setting and background\n- Time of day, lighting, mood\n- Camera movement (e.g., slow zoom, tracking shot)\n- Visual style (e.g., photorealistic, cartoon, cinematic)\n\nKeep it concise (1–2 sentences). Output ONLY the prompt text, no explanation.",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        1952
+      ],
+      "id": "6fe0ce2f-ffd6-483c-ace6-93d28b68a1a0",
+      "name": "Analyze an image"
+    },
+    {
+      "parameters": {
+        "content": "##  Proses membuat video berdasarkan gambar yang dikirim pada langkah diatas",
+        "height": 336,
+        "width": 1872,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        208,
+        1024
+      ],
+      "id": "835cd2a5-9035-4572-abeb-408011b3c41e",
+      "name": "Sticky Note2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0aef80fb-8f15-48d2-8720-631834a6e130",
+              "name": "prompt",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        304,
+        768
+      ],
+      "id": "d09509aa-fa6b-43be-9ad5-726d655b49d3",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.api_key }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    \"model\": \"grok-imagine/text-to-image\",\n    \"input\": {\n      \"prompt\": $('Edit Fields1').item.json.prompt,\n      \"aspect_ratio\": \"3:2\"\n    }\n  })\n}}",
+        "options": {}
+      },
+      "id": "51ea3154-95ce-4d03-ac5d-eeeea4d28c60",
+      "name": "Mengirim Image Generation Request ke KIE.AI API",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        688,
+        768
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "id": "9a2c4d49-6f6a-4eae-a16d-43246d2663b6",
+      "name": "Menunggu Proses Generate Gambar",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        896,
+        768
+      ],
+      "webhookId": "bb6c2821-9586-44b7-8606-2ee69a77ed75",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{$json.data.taskId}}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('Edit Fields2').item.json.api_key }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8ed49be7-908c-4c9d-8d50-225f7e8124f8",
+      "name": "Mendapatkan Status Generate",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1120,
+        768
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "db9a5dec-997b-4c3f-9582-37c9bbeb19ff",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "=success",
+              "rightValue": "={{ $json.data.state }}"
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "8190011a-ef0b-4764-bc0f-743ac72df908",
+      "name": "Check Jika Generate Sudah Selesai",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1344,
+        768
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const urls = [\n  $json.img1,\n  $json.img2,\n  $json.img3,\n  $json.img4\n].filter(Boolean);\n\n// jadikan 1 URL = 1 item\nreturn urls.map((url, index) => ({\n  json: {\n    url,\n    index: index + 1\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1776,
+        752
+      ],
+      "id": "acff36d3-e87d-4fdf-8e55-a5655869175b",
+      "name": "Loop Image"
+    },
+    {
+      "parameters": {
+        "url": "={{$json.url}}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1952,
+        752
+      ],
+      "id": "de46c3af-645d-40b2-84c9-8498096ccd63",
+      "name": "Download Gambar"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c8889b9f-cf2f-45a0-a3a4-b79f32bbb507",
+              "name": "api_key",
+              "value": "e72f995bc873b68185b95d70ad6b515b",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        496,
+        768
+      ],
+      "id": "231b52c9-7c5b-4ba3-a977-51fd1557c3e4",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const result = JSON.parse($json.data.resultJson);\n\nreturn [{\n  img1: result.resultUrls[0] || null,\n  img2: result.resultUrls[1] || null,\n  img3: result.resultUrls[2] || null,\n  img4: result.resultUrls[3] || null\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1568,
+        752
+      ],
+      "id": "7b1fa305-b5a1-4660-bc23-7d3c55e0743f",
+      "name": "Format Result"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        928,
+        352
+      ],
+      "id": "12e0e6ce-c350-4105-b84f-7d35a1213f8e",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "VHJBc5uArI2eFUra",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $('Mengirim Image Generation Req Ke API KIE.AI2').item.json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer 138ea7222e561fbb8e70bda8d5da8720"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        960,
+        1104
+      ],
+      "id": "23141c89-686f-4c54-bb06-c741cd646efb",
+      "name": "HTTP Request Menerima"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.videoUrl }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1632,
+        1088
+      ],
+      "id": "4e69aa20-ca4b-45ce-8c44-eb9725308411",
+      "name": "HTTP Request Download"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7a760978-a611-4e1c-bf2b-ff2d4e28428c",
+              "leftValue": "success",
+              "rightValue": "={{ $json.data.state }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1168,
+        1104
+      ],
+      "id": "95feda57-376e-431f-b5fe-8e140ea32398",
+      "name": "IF"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pastikan node ini hanya diproses jika state adalah success\nif ($json.data && $json.data.state === \"success\" && $json.data.resultJson) {\n  const result = JSON.parse($json.data.resultJson);\n  return [{\n    json: {\n      videoUrl: result.resultUrls[0]\n    }\n  }];\n} else {\n  // Jika dipaksa jalan tapi belum success, beri info error\n  return [{\n    json: {\n      error: \"Video belum siap atau gagal\",\n      currentState: $json.data ? $json.data.state : \"unknown\"\n    }\n  }];\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        1088
+      ],
+      "id": "214e53a5-1349-4d47-aaf7-7ba4204521d8",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer e72f995bc873b68185b95d70ad6b515b"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"grok-imagine/image-to-video\",\n  \"input\": {\n    \"image_urls\": [\n      \"https://api.telegram.org/file/bot8772482372:AAFffZntYsllEdQ8rvztoEPnhIYGBGTQ6Qo/{{ $json.result.file_path }}\"\n    ],\n    \"prompt\": \"{{ $node['Telegram Trigger'].json.message.caption || 'Make this image move' }}\",\n    \"mode\": \"normal\",\n    \"duration\": 6,\n    \"resolution\": \"480p\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        512,
+        1104
+      ],
+      "id": "dbb6c280-db76-42dd-a600-4863695695b0",
+      "name": "Mengirim Image Generation Req Ke API KIE.AI2"
+    },
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot8593217586:AAFoRMWr5Fzz_sYsyLkY68zRI-y8bvCmfVg/getFile",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "file_id",
+              "value": "={{ $json.message.photo[$json.message.photo.length - 1].file_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        256,
+        1136
+      ],
+      "id": "5b866079-5446-4abd-9052-654c00d633de",
+      "name": "Get gambar"
+    },
+    {
+      "parameters": {
+        "operation": "sendVideo",
+        "chatId": "5701993759",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1888,
+        1088
+      ],
+      "id": "8123213c-d05d-468c-b5fa-50415fad8920",
+      "name": "Send a video2",
+      "webhookId": "ee67b4fe-6500-4c32-8e92-2b9a76c9204b",
+      "credentials": {
+        "telegramApi": {
+          "id": "iHhuo0IrSpXaEYSm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        752,
+        1104
+      ],
+      "id": "297ba741-a4d7-4450-8dd2-c74cab65ae3b",
+      "name": "Wait1",
+      "webhookId": "0b921ba2-b22f-4320-ba9d-bb11961982d7"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Membuat Ide Konten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Membuat Ide Konten": {
+      "main": [
+        [
+          {
+            "node": "Output 1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Output 2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Output 3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Output  4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output LLM": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Membuat Ide Konten",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output 1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output 2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Output 3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Output  4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Kirim Ide ke Tim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Respon Cepat",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format salah (False)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get gambar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze an image": {
+      "main": [
+        [
+          {
+            "node": "Generate a video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mengirim Image Generation Request ke KIE.AI API": {
+      "main": [
+        [
+          {
+            "node": "Menunggu Proses Generate Gambar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Menunggu Proses Generate Gambar": {
+      "main": [
+        [
+          {
+            "node": "Mendapatkan Status Generate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mendapatkan Status Generate": {
+      "main": [
+        [
+          {
+            "node": "Check Jika Generate Sudah Selesai",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Jika Generate Sudah Selesai": {
+      "main": [
+        [
+          {
+            "node": "Format Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Menunggu Proses Generate Gambar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Image": {
+      "main": [
+        [
+          {
+            "node": "Download Gambar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Gambar": {
+      "main": [
+        [
+          {
+            "node": "Kirim Gambar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Mengirim Image Generation Request ke KIE.AI API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Result": {
+      "main": [
+        [
+          {
+            "node": "Loop Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Membuat Ide Konten",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Menerima": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request Download": {
+      "main": [
+        [
+          {
+            "node": "Send a video2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request Download",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mengirim Image Generation Req Ke API KIE.AI2": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get gambar": {
+      "main": [
+        [
+          {
+            "node": "Mengirim Image Generation Req Ke API KIE.AI2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request Menerima",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e9d2bf77-a0d6-4672-a218-90a1401ac314",
+  "meta": {
+    "instanceId": "32c0ef153f7930e565ad160435282be5c9c56963458788d102e98ccae3c60878"
+  },
+  "id": "2aR7CVzMlyObaSh1",
+  "tags": []
+}
